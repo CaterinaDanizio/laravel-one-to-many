@@ -10,4 +10,8 @@ class Typology extends Model
         'name',
         'description'
     ];
+
+    public function tasks() {
+		return $this -> belongsToMany(Task::class);
+	}
 }

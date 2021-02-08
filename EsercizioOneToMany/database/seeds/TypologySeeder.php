@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class TipologySeeder extends Seeder
+class TypologySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class TipologySeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(Typology::class, 10) -> create();
     }
 }
