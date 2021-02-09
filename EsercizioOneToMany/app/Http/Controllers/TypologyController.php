@@ -29,6 +29,13 @@ class TypologyController extends Controller
 		$typology = Typology::create($data);
 		$tasks = Task::findOrFail($data['tasks']);
 		$typology -> tasks() -> attach($tasks);
+
+		// Validation
+		$validatedData = $request->validate([
+		'name' => ['required', 'min:3', 'max:60'],
+		'description' => ['nullable']
+       ]);
+	   
 		return redirect() -> route('typologies-index');
 	}
 
@@ -44,6 +51,13 @@ class TypologyController extends Controller
 		$typology -> update($data);
 		$tasks = Task::findOrFail($data['tasks']);
 		$typology -> tasks() -> sync($tasks);
+
+		// Validation
+		$validatedData = $request->validate([
+		'name' => ['required', 'min:3', 'max:60'],
+		'description' => ['nullable']
+       ]);
+
 		return redirect() -> route('typology-show', $id);
 	}
 }

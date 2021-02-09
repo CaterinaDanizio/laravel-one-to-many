@@ -37,6 +37,13 @@ class TaskController extends Controller
 		$typologies = Typology::findOrFail($data['typologies']);
 		$task -> typologies() -> attach($typologies);
 
+		// Validation
+		$validatedData = $request->validate([
+		'title' => ['required', 'min:3', 'max:60'],
+		'description' => ['nullable'],
+		'priority' => ['required', 'numeric', 'min:1', 'max:5']
+		]);
+
 		return redirect() -> route('tasks-index');
 	}
 
@@ -60,6 +67,14 @@ class TaskController extends Controller
 		$typologies = Typology::findOrFail($data['typologies']);
 		$task -> typologies() -> sync($typologies);
 
+		// Validation
+		$validatedData = $request->validate([
+		'title' => ['required', 'min:3', 'max:60'],
+		'description' => ['nullable'],
+		'priority' => ['required', 'numeric', 'min:1', 'max:5']
+		]);
+
 		return redirect() -> route('task-show', $id);
+
 	}
 }

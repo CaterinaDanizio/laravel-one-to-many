@@ -9,7 +9,7 @@ class EmployeeController extends Controller
 {
     	public function index() {
 		$employees = Employee::all();
-		return view('pages.employees-index', compact('employees'));
+		return view('pages.employee-index', compact('employees'));
 	}
 
 	public function show($id) {
@@ -23,7 +23,15 @@ class EmployeeController extends Controller
 
 	public function store(Request $request) {
 		Employee::create($request -> all());
-		return redirect() -> route('employees-index');
+
+		// Validation
+		$validatedData = $request->validate([
+		'name' => ['required', 'min:3', 'max:60'],
+		'lastname' => ['required', 'min:3', 'max:60'],
+		'dateOfBirth' => ['nullable', 'date'],
+       ]);
+
+		return redirect() -> route('employee-index');
 	}
 
 	public function edit($id) {
@@ -33,6 +41,14 @@ class EmployeeController extends Controller
 
 	public function update(Request $request, $id) {
 		Employee::findOrFail($id) -> update($request -> all());
+
+		// Validation
+		$validatedData = $request->validate([
+		'name' => ['required', 'min:3', 'max:60'],
+		'lastname' => ['required', 'min:3', 'max:60'],
+		'dateOfBirth' => ['nullable', 'date'],
+       ]);
+
 		return redirect() -> route('employee-show', $id);
 	}
 }

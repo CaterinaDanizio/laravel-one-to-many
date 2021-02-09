@@ -1,6 +1,5 @@
 <?php
 
-use Faker\Factory;
 use Illuminate\Database\Seeder;
 use App\Task;
 use App\Employee;
@@ -29,8 +28,6 @@ class TaskSeeder extends Seeder
 				$task -> typologies() -> attach($typologies);
 			});
     }
-
-
 			
 }
 

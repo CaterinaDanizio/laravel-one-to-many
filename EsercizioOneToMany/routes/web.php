@@ -16,8 +16,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/employees', 'EmployeeController@index')
     -> name('employee-index');
-Route::get('/emp/{id}', 'EmployeeController@show')
+Route::get('/employee/{id}', 'EmployeeController@show')
     -> name('employee-show');
+Route::get('/employee/create', 'EmployeeController@create')
+    -> name('employee-create');
+Route::get('/employee/store', 'EmployeeController@store')
+    -> name('employee-store');
+Route::get('/employee/edit/{id}', 'EmployeeController@edit')
+    -> name('employee-edit');
+Route::post('/employee/update/{id}', 'EmployeeController@update')
+    -> name('employee-update');
 Route::get('/tasks', 'TaskController@index') 
     -> name('task-index');    
 Route::get('/task/create', 'TaskController@create')
