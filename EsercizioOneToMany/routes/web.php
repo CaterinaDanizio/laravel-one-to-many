@@ -16,11 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/employees', 'EmployeeController@index')
     -> name('employee-index');
-Route::get('/employee/{id}', 'EmployeeController@show')
-    -> name('employee-show');
 Route::get('/employee/create', 'EmployeeController@create')
     -> name('employee-create');
-Route::get('/employee/store', 'EmployeeController@store')
+Route::get('/employee/{id}', 'EmployeeController@show')
+    -> name('employee-show');
+Route::post('/employee/store', 'EmployeeController@store')
     -> name('employee-store');
 Route::get('/employee/edit/{id}', 'EmployeeController@edit')
     -> name('employee-edit');
@@ -38,5 +38,15 @@ Route::post('/task/update/{id}', 'TaskController@update')
     -> name('task-update');
 Route::get('/task/{id}', 'TaskController@show')
     -> name('task-show');
+Route::get('/typologies', 'TypologyController@index')
+    -> name('typology-index');
+Route::get('/typology/create', 'TypologyController@create')
+    -> name('typology-create');
 Route::get('/typology/{id}', 'TypologyController@show')
     -> name('typology-show');
+Route::post('/typology/store', 'TypologyController@store')
+    -> name('typology-store');
+Route::get('/typology/edit/{id}', 'TypologyController@edit')
+    -> name('typology-edit');
+Route::post('/typology/update/{id}', 'TypologyController@update')
+    -> name('typology-update');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Employee;
 use App\Task;
 use App\Typology;
@@ -29,6 +30,14 @@ class TaskController extends Controller
 
 		$data = $request -> all();
 
+		// Validation
+
+		Validator::make($request -> all(), [
+			'title' => 'required|min:5|max:50',
+			'description' => 'required|min:5|max:200',
+			'priority' => 'required|integer|min:1|max:5',
+		]) -> validate();
+
 		$task = Task::make($data);
 		$employee = Employee::findOrFail($request -> get('employee_id'));
 		$task -> employee() -> associate($employee);
@@ -37,14 +46,7 @@ class TaskController extends Controller
 		$typologies = Typology::findOrFail($data['typologies']);
 		$task -> typologies() -> attach($typologies);
 
-		// Validation
-		$validatedData = $request->validate([
-		'title' => ['required', 'min:3', 'max:60'],
-		'description' => ['nullable'],
-		'priority' => ['required', 'numeric', 'min:1', 'max:5']
-		]);
-
-		return redirect() -> route('tasks-index');
+		return redirect() -> route('task-index');
 	}
 
 	public function edit($id) {
@@ -55,8 +57,16 @@ class TaskController extends Controller
 	}
 
 	public function update(Request $request, $id) {
-
+		
 		$data = $request -> all();
+
+		// Validation
+
+		Validator::make($request -> all(), [
+			'title' => 'required|min:5|max:50',
+			'description' => 'required|min:5|max:200',
+			'priority' => 'required|integer|min:1|max:5',
+		]) -> validate();
 
 		$task = Task::findOrFail($id);
 		$employee = Employee::findOrFail($data['employee_id']);
@@ -66,13 +76,6 @@ class TaskController extends Controller
 
 		$typologies = Typology::findOrFail($data['typologies']);
 		$task -> typologies() -> sync($typologies);
-
-		// Validation
-		$validatedData = $request->validate([
-		'title' => ['required', 'min:3', 'max:60'],
-		'description' => ['nullable'],
-		'priority' => ['required', 'numeric', 'min:1', 'max:5']
-		]);
 
 		return redirect() -> route('task-show', $id);
 

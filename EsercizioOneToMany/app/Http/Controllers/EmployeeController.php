@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Employee;
 
 class EmployeeController extends Controller
@@ -22,15 +23,18 @@ class EmployeeController extends Controller
 	}
 
 	public function store(Request $request) {
+		
+		
 		Employee::create($request -> all());
 
 		// Validation
-		$validatedData = $request->validate([
-		'name' => ['required', 'min:3', 'max:60'],
-		'lastname' => ['required', 'min:3', 'max:60'],
-		'dateOfBirth' => ['nullable', 'date'],
-       ]);
 
+		Validator::make($request -> all(), [
+			'name' => 'required|min:3|max:50',
+			'lastname' => 'required|min:3|max:50',
+			'dateOfBirth' => 'required|date',
+		]) -> validate();
+		
 		return redirect() -> route('employee-index');
 	}
 
@@ -40,14 +44,17 @@ class EmployeeController extends Controller
 	}
 
 	public function update(Request $request, $id) {
-		Employee::findOrFail($id) -> update($request -> all());
 
+
+		Employee::findOrFail($id) -> update($request -> all());
+		
 		// Validation
-		$validatedData = $request->validate([
-		'name' => ['required', 'min:3', 'max:60'],
-		'lastname' => ['required', 'min:3', 'max:60'],
-		'dateOfBirth' => ['nullable', 'date'],
-       ]);
+
+		Validator::make($request -> all(), [
+			'name' => 'required|min:3|max:50',
+			'lastname' => 'required|min:3|max:50',
+			'dateOfBirth' => 'required|date',
+		]) -> validate();
 
 		return redirect() -> route('employee-show', $id);
 	}

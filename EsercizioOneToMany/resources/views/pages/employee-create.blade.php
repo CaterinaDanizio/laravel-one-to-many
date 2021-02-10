@@ -10,10 +10,12 @@
         <input name="name" type="text">
 
         <label for="lastname">Lastname</label>
-        <input name="lastname" type="text">
+		<input name="lastname" type="text">
 
-        <label for="dateofBirth">Date of Birth</label>
-        <input name="dateofBirth" type="text">
+        <label for="dateOfBirth">Date of Birth</label>
+		<input name="dateOfBirth" type="text">
+
+		<br>
 
         <input type="submit" value="CREATE">
  </form>
